@@ -60,4 +60,29 @@ public sealed class ProductService : IProductService
 
         return updated ? ProductResponse.FromModel(product) : null;
     }
+
+
+    public async Task<ToggleActivateResponse?> ToggleStatusActiveAsync(string productCode, CancellationToken cancellationToken)
+    {
+        var product = await _repository.GetByCodeChangeAsync(productCode, cancellationToken);
+        
+        if (product is null)
+        {
+            return null;
+        }
+
+        if (product.IsActive)
+        {
+            product.Deactivated();
+        }
+        else
+        {
+            product.Activated();
+        }
+        
+        await _repository.SaveChangeAsync(cancellationToken);
+
+        return ToggleActivateResponse.FromModel(product);
+    }
+    
 }

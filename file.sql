@@ -36,4 +36,7 @@ SELECT TABLE_NAME FROM INFORMATION_SCHEMA.Tables
 Where TABLE_TYPE = 'BASE TABLE';
 GO
 
+
+alter table dbo.Product add IsActive bit NOT NULL DEFAULT 1;
+alter table dbo.Product add DeactivatedUtc DATETIME2 NULL DEFAULT GETDATE();
 select * FROM dbo.Product;

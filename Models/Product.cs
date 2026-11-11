@@ -11,6 +11,8 @@ public sealed class Product
     public int Stock { get; private set;}
     public string Category { get; private set;}
     public string? Description { get; private set;}
+    public bool IsActive {get; private set;} = true;
+    public DateTime? DeactivatedUtc {get; private set;}
 
     public Product(string productCode, string name, decimal price, int stock, string category,string? description = null)
     {
@@ -40,6 +42,8 @@ public sealed class Product
         Stock = stock;
         Category = category.Trim();
         Description = description?.Trim();
+        IsActive = true;
+        DeactivatedUtc=null;
     }
 
     public void UpdateDetail(string name,decimal price, int stock, string category,string? description)
@@ -53,5 +57,15 @@ public sealed class Product
         Description=validated.Description;
     }
 
-    
+    public void Deactivated()
+    {
+        IsActive = false;
+        DeactivatedUtc = DateTime.UtcNow;
+    }
+
+    public void Activated()
+    {
+        IsActive = true;
+        DeactivatedUtc = null;
+    }  
 }

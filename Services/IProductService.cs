@@ -10,4 +10,6 @@ public interface IProductService
     Task<ProductResponse?> UpdateAsync(string productCode, UpdateProductRequest request, CancellationToken cancellationToken);
 
     Task<bool> DeleteAsync(string productCode, CancellationToken cancellationToken);
+
+    Task<ToggleActivateResponse?> ToggleStatusActiveAsync(string productCode, CancellationToken cancellationToken);
 }

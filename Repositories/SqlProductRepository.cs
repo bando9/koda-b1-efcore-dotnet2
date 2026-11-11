@@ -39,6 +39,10 @@ public sealed class SqlProductRepository : IProductRepository
         return products;
     }
 
+    public async Task<Product?> GetByCodeChangeAsync(string productCode, CancellationToken cancellationToken)
+    {
+        throw new Exception();
+    }
     public async Task<Product?> GetByCodeAsync(string productCode, CancellationToken cancellationToken)
     {
         const string sql = """
@@ -166,6 +170,11 @@ public sealed class SqlProductRepository : IProductRepository
             reader.GetString(4),
             reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description"))
         );
+    }
+
+    public Task SaveChangeAsync(CancellationToken cancellationToken)
+    {
+        throw new Exception("blm implementasi");
     }
 
 }

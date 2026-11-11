@@ -3,12 +3,12 @@
 GET {{baseUrl}}/weatherforecast/
 Accept: application/json
 
-### Get Product All
+### Get Product All 
 GET {{baseUrl}}/api/v1/products
 Accept: application/json
 
 ### Get Product By Code
-GET {{baseUrl}}/api/v1/products/PR01
+GET {{baseUrl}}/api/v1/products/P001
 Accept: application/json
 
 ### POST Product
@@ -52,3 +52,8 @@ Content-Type: image/jpeg
 
 < C:\Upload\valid_product.jpg
 --KodaStore--
+
+
+### Toggle is Active
+PATCH {{baseUrl}}/api/v1/products/P001/toggleActivated
+Accept: application/json

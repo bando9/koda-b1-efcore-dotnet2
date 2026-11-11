@@ -106,4 +106,22 @@ public sealed class ProductController : ControllerBase
                 detail: e.Message);
         }
     }
+
+
+    [HttpPatch("{productCode}/toggleActivated")]
+    [ProducesResponseType(typeof(ToggleActivateResponse),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ToggleStatusActive([FromRoute] string productCode,CancellationToken cancellationToken)
+    {
+        
+        var response = await _service.ToggleStatusActiveAsync(productCode, cancellationToken);
+
+        if(response is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);        
+    }
+
 }

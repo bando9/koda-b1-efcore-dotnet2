@@ -24,6 +24,13 @@ public sealed class EfProductRepository : IProductRepository
         return await _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.ProductCode == productCode, cancellationToken);
     }
 
+    public async Task<Product?> GetByCodeChangeAsync(string productCode, CancellationToken cancellationToken)
+    {
+        return await _db.Products.FirstOrDefaultAsync(p => p.ProductCode == productCode, cancellationToken);
+    }
+
+
+
     public async Task<bool> TryAddAsync(Product product, CancellationToken cancellationToken)
     {
         _db.Products.Add(product);        
@@ -77,6 +84,10 @@ public sealed class EfProductRepository : IProductRepository
         await _db.SaveChangesAsync(cancellationToken);
 
         return true;
+    }
 
+    public async Task SaveChangeAsync(CancellationToken cancellationToken)
+    {
+        await _db.SaveChangesAsync(cancellationToken);
     }
 }

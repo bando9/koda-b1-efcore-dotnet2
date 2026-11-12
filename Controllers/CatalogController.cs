@@ -17,15 +17,15 @@ public sealed class CatalogController : Controller
         _service = service;
     }
 
-    [HttpGet("")]
-    public async Task<IActionResult> Index(
-        CancellationToken cancellationToken)
-    {
-        var products = await _service.GetAllAsync(
-            cancellationToken);
+    // [HttpGet("")]
+    // public async Task<IActionResult> Index(
+    //     CancellationToken cancellationToken)
+    // {
+    //     var products = await _service.GetAllAsync(
+    //         cancellationToken);
 
-        return View(products);
-    }
+    //     return View(products);
+    // }
 
     [HttpGet("details/{productCode}")]
     public async Task<IActionResult> Details(

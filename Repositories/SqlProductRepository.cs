@@ -14,7 +14,7 @@ public sealed class SqlProductRepository : IProductRepository
             ?? throw new InvalidOperationException("Conection string ecommerce menghilang");
     }
 
-    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<Product>> GetAllAsync(ProductStatusFilter filter,CancellationToken cancellationToken)
     {
         const string sql = """
             SELECT ProductCode, Name, Price, Stock, Category, Description

@@ -55,5 +55,17 @@ Content-Type: image/jpeg
 
 
 ### Toggle is Active
-PATCH {{baseUrl}}/api/v1/products/P001/toggleActivated
+PATCH {{baseUrl}}/api/v1/products/P002/toggleActivated
+Accept: application/json
+
+### Get all products
+GET {{baseUrl}}/api/v1/products
+Accept: application/json
+
+### Get active products
+GET {{baseUrl}}/api/v1/products?filter=active
+Accept: application/json
+
+### Get inactive products
+GET {{baseUrl}}/api/v1/products?filter=inactive
 Accept: application/json

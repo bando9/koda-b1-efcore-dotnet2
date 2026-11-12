@@ -33,9 +33,10 @@ public sealed class ProductService : IProductService
         return _repository.TryDeleteAsync(productCode, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<ProductResponse>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ProductResponse>> GetAllAsync(ProductStatusFilter filter,CancellationToken cancellationToken)
     {
-        var products = await _repository.GetAllAsync(cancellationToken);
+        
+        var products = await _repository.GetAllAsync(filter,cancellationToken);
 
         return products.Select(ProductResponse.FromModel).ToArray();
     }

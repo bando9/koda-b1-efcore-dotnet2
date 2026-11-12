@@ -14,9 +14,20 @@ public sealed class EfProductRepository : IProductRepository
     public EfProductRepository(AppDbContext db){
         _db=db;
     }
-    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<Product>> GetAllAsync(ProductStatusFilter filter, CancellationToken cancellationToken)
     {
-        return await _db.Products.AsNoTracking().OrderBy(p => p.ProductCode).ToListAsync(cancellationToken);
+        var query = _db.Products.AsNoTracking();
+        query = filter switch
+        {
+            ProductStatusFilter.Active => query.Where(p => p.IsActive),
+
+            ProductStatusFilter.InActive => query.Where(p=>!p.IsActive),
+
+            _ =>query
+            
+        };
+
+        return await query.ToListAsync(cancellationToken);
     }
 
     public async Task<Product?> GetByCodeAsync(string productCode, CancellationToken cancellationToken)

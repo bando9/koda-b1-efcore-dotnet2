@@ -24,9 +24,14 @@ public sealed class ProductController : ControllerBase
         typeof(IReadOnlyList<ProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(
         typeof(IReadOnlyList<ProductResponse>), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IReadOnlyList<Product>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetAll([FromQuery] ProductStatusFilter filter = ProductStatusFilter.All,CancellationToken cancellationToken = default)
     {
-        var products = await _service.GetAllAsync(cancellationToken);
+        if (!Enum.IsDefined(filter))
+        {
+            return BadRequest("Invalid product status filter");
+        }
+
+        var products = await _service.GetAllAsync(filter, cancellationToken);
         return Ok(products); 
     }
 

@@ -4,7 +4,7 @@ namespace KodaStore.Api.Repositories;
 
 public interface IProductRepository
 {
-    Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken);
+    Task<IReadOnlyList<Product>> GetAllAsync(ProductStatusFilter filter,CancellationToken cancellationToken);
 
     Task<Product?> GetByCodeAsync(string productCode, CancellationToken cancellationToken);
     Task<Product?> GetByCodeChangeAsync(string productCode, CancellationToken cancellationToken);
